@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+   <data>
+
+       <variable
+           name="movieModel"
+           type="com.example.movieapptest.data.model.Result" />
+
+   </data>
+
+
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_5sdp"
+        android:padding="@dimen/_5sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/Iv_poster"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:scaleType="fitXY"
+                imageUrl="@{movieModel.poster_path}"
+               />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@+id/Iv_poster"
+                android:orientation="vertical"
+                android:padding="@dimen/_3sdp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:fontFamily="@font/roboto_bold"
+                    android:lines="1"
+                    android:text="@{movieModel.title}"
+                    android:padding="@dimen/_2sdp"
+                    android:textSize="@dimen/_14sdp"
+                    tools:text="Black Panther: Wakanda Forever" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:padding="@dimen/_2sdp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:lines="1"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="Action,Adventure,Science Fiction" />
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:padding="@dimen/_2sdp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:lines="1"
+                    releaseOnText="@{movieModel.release_date}"
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="Release On: 02-Feb-2023" />
+
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:id="@+id/Iv_rate"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_width="@dimen/_16sdp"
+                        android:layout_height="@dimen/_16sdp"
+                        android:src="@drawable/ic_star_rate"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_toEndOf="@+id/Iv_rate"
+                        android:ellipsize="end"
+                        android:fontFamily="@font/roboto_medium"
+                        android:lines="1"
+                        android:text="@{String.valueOf(movieModel.vote_average)+` Rating | voters: `+String.valueOf(movieModel.vote_count)}"
+                        android:padding="@dimen/_2sdp"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="8.5 Rating | Votes: 3132" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

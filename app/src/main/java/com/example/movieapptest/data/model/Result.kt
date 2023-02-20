@@ -4,6 +4,7 @@ data class Result(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,
+    var genre_categoryName: List<String>,
     val id: Int,
     val original_language: String,
     val original_title: String,

@@ -1,12 +1,19 @@
 package com.example.movieapptest.di
 
+import android.content.Context
+import android.content.SharedPreferences
+import androidx.room.Room
 import com.example.movieapptest.BuildConfig
+import com.example.movieapptest.base.AppConstant
 import com.example.movieapptest.data.network.ApiInterface
 import com.example.movieapptest.data.repository.MovieRepository
 import com.example.movieapptest.data.repository.MovieRepositoryImp
+import com.example.movieapptest.data.repository.paging.MoviePagingSource
+import com.example.movieapptest.data.room.DataBase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -50,5 +57,24 @@ class AppModule {
     fun provideMovieRepository(apiInterface:ApiInterface):MovieRepository
     {
         return MovieRepositoryImp(apiInterface)
+    }
+
+
+
+    @Singleton
+    @Provides
+    fun provideDatabase(@ApplicationContext appContext: Context): DataBase {
+        return Room.databaseBuilder(
+            appContext,
+            DataBase::class.java, "movieAppTest.db"
+        ).build()
+    }
+
+
+    @Singleton
+    @Provides
+    fun providePreference(@ApplicationContext appContext: Context): SharedPreferences
+    {
+        return appContext.getSharedPreferences(AppConstant.MOVIE_APP_PREFERENCE, Context.MODE_PRIVATE)
     }
 }

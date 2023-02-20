@@ -19,6 +19,8 @@ class AppConstant {
 
     companion object {
 
+        const val MOVIE_APP_PREFERENCE="movie_app_preference"
+        const val GENRE_ITEM="genre_item"
         const val ImagePath = "https://image.tmdb.org/t/p/original"
 
         @BindingAdapter("imageUrl")

@@ -5,6 +5,7 @@ import com.example.movieapptest.data.model.MovieDetailModel
 import com.example.movieapptest.data.model.MoviesModel
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
 
@@ -33,6 +34,6 @@ interface ApiInterface {
     suspend fun movieDetail(@Url url:String):Response<MovieDetailModel>
 
     @GET(ApiConfig.SEARCH)
-    suspend fun search(@Query("page")page:Int,@Query("api_key") apikey:String):Response<MoviesModel>
+    suspend fun search(@Query("query") params:String,@Query("page")page:Int,@Query("api_key") apikey:String):Response<MoviesModel>
 
 }

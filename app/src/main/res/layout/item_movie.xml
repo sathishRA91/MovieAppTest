@@ -63,6 +63,7 @@
                     android:padding="@dimen/_2sdp"
                     android:fontFamily="@font/roboto_medium"
                     android:lines="1"
+                    android:text="@{String.valueOf(movieModel.genre_categoryName)}"
                     android:textSize="@dimen/_10sdp"
                     tools:text="Action,Adventure,Science Fiction" />
 

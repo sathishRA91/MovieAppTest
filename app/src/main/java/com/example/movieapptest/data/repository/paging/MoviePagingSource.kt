@@ -1,15 +1,26 @@
 package com.example.movieapptest.data.repository.paging
 
+import android.content.SharedPreferences
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.movieapptest.BuildConfig
-import com.example.movieapptest.data.network.ApiInterface
-import java.lang.Exception
+import com.example.movieapptest.base.AppConstant
+import com.example.movieapptest.data.model.Genres
 import com.example.movieapptest.data.model.Result
+import com.example.movieapptest.data.network.ApiInterface
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
-class MoviePagingSource(private val apiInterface: ApiInterface, private val screenFrom: String) :
+class MoviePagingSource (private val apiInterface: ApiInterface, private val screenFrom: String) :
     PagingSource<Int, Result>() {
 
+    private var searchQuery: String?=""
+
+    constructor(searchQuery:String, apiInterface: ApiInterface, screenFrom: String):this(apiInterface,screenFrom)
+    {
+        this.searchQuery=searchQuery
+    }
 
     override fun getRefreshKey(state: PagingState<Int, Result>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
@@ -25,27 +36,21 @@ class MoviePagingSource(private val apiInterface: ApiInterface, private val scre
 
             val response = when (screenFrom) {
                 "NowPlaying" -> {
-                    apiInterface.nowPlaying(pageNumber,BuildConfig.ApiKey)
+                    apiInterface.nowPlaying(pageNumber, BuildConfig.ApiKey)
                 }
                 "Popular" -> {
-                    apiInterface.popular(pageNumber,BuildConfig.ApiKey)
+                    apiInterface.popular(pageNumber, BuildConfig.ApiKey)
                 }
                 "Upcoming" -> {
-                    apiInterface.upcoming(pageNumber,BuildConfig.ApiKey)
+                    apiInterface.upcoming(pageNumber, BuildConfig.ApiKey)
                 }
                 "TopRated" -> {
-                    apiInterface.topRated(pageNumber,BuildConfig.ApiKey)
+                    apiInterface.topRated(pageNumber, BuildConfig.ApiKey)
                 }
                 else -> {
-                    apiInterface.search(pageNumber,BuildConfig.ApiKey)
+                    apiInterface.search(searchQuery.toString(),pageNumber, BuildConfig.ApiKey)
                 }
             }
-
-
-           /* if(response.body()!=null)
-            {
-                val genreData= response.body()!!.results[0].genre_ids
-            }*/
 
 
             LoadResult.Page(

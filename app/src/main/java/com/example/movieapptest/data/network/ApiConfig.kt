@@ -10,8 +10,8 @@ class ApiConfig {
         const val POPULAR = "movie/popular"
         const val TOP_RATED = "movie/top_rated"
         const val UPCOMING = "movie/upcoming"
-        const val GENRE = "genre/movie/list"
-        const val MOVIE_DETAIL = "movie"
+        const val GENRE = "genre/movie/list?api_key="
+        const val MOVIE_DETAIL = "movie/"
         const val SEARCH = "search/movie"
     }
 

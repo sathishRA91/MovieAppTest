@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -9,9 +11,7 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -47,14 +47,14 @@
                     android:id="@+id/Tv_toolTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toEndOf="@+id/Iv_back"
                     android:layout_centerInParent="true"
-                    android:text="@{movieDetail.title}"
                     android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_toEndOf="@+id/Iv_back"
                     android:fontFamily="@font/roboto_bold"
+                    android:text="@{movieDetail.title}"
                     android:textColor="@color/white"
-                    tools:text="Test"
-                    android:textSize="@dimen/_13sdp" />
+                    android:textSize="@dimen/_13sdp"
+                     />
 
             </RelativeLayout>
 
@@ -79,24 +79,11 @@
             android:ellipsize="end"
             android:fontFamily="@font/roboto_bold"
             android:lines="1"
-            android:text="@{movieDetail.title}"
-            android:padding="@dimen/_2sdp"
+            android:layout_margin="@dimen/_4sdp"
+            android:text="@{movieDetail.title+`  [`+movieDetail.status+`]`}"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintTop_toBottomOf="@+id/Iv_banner"
             tools:text="Black Panther: Wakanda Forever" />
-
-        <TextView
-            android:id="@+id/Tv_releaseOn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:fontFamily="@font/roboto_medium"
-            android:lines="1"
-            releaseOnText="@{movieDetail.releaseDate}"
-            android:padding="@dimen/_2sdp"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintTop_toBottomOf="@+id/Tv_title"
-            tools:text="Release On: 02-Feb-2023" />
 
         <TextView
             android:id="@+id/Tv_genre"
@@ -105,24 +92,103 @@
             android:ellipsize="end"
             android:fontFamily="@font/roboto_medium"
             android:lines="1"
+            android:layout_margin="@dimen/_4sdp"
             android:text="@{movieDetail.genre}"
-            android:padding="@dimen/_2sdp"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintTop_toBottomOf="@+id/Tv_releaseOn"
+            app:layout_constraintTop_toBottomOf="@+id/Tv_title"
             tools:text="Action,Adventure,Science Fiction" />
 
 
         <TextView
-            android:id="@+id/Tv_overView"
-            android:layout_width="match_parent"
+            android:id="@+id/Tv_releaseOn"
+            releaseOnText="@{movieDetail.releaseDate}"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/roboto_medium"
-            android:padding="@dimen/_2sdp"
+            android:lines="1"
+            android:layout_margin="@dimen/_4sdp"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Tv_genre"
+            tools:text="Release On: 02-Feb-2023" />
+
+        <ImageView
+            android:id="@+id/Iv_favourite"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+            android:layout_marginEnd="@dimen/_5sdp"
+            android:src="@{movieDetail.isFavourite()?@drawable/ic_favourite:@drawable/ic_favourite_border}"
+            app:layout_constraintBottom_toBottomOf="@+id/Tv_releaseOn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Tv_releaseOn"
+            app:tint="@color/colorPrimary" />
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/Rl_rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_4sdp"
+            app:layout_constraintTop_toBottomOf="@+id/Tv_releaseOn">
+
+            <ImageView
+                android:id="@+id/Iv_rate"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_marginTop="@dimen/_2sdp"
+                android:src="@drawable/ic_star_rate" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_toEndOf="@+id/Iv_rate"
+                android:ellipsize="end"
+                android:fontFamily="@font/roboto_medium"
+                android:lines="1"
+                android:padding="@dimen/_2sdp"
+                android:text="@{String.valueOf(movieDetail.voteAverage)+` Rating | voters: `+String.valueOf(movieDetail.voteCount)}"
+                android:textSize="@dimen/_12sdp"
+                tools:text="8.5 Rating | Votes: 3132" />
+
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/Iv_poster"
+            imageUrl="@{movieDetail.posterImage}"
+            android:layout_width="@dimen/_90sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:scaleType="fitXY"
+            android:layout_margin="@dimen/_4sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/Rl_rating" />
+
+        <TextView
+            android:id="@+id/Tv_overView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
             android:text="@{movieDetail.overview}"
             android:textSize="@dimen/_11sdp"
-            app:layout_constraintTop_toBottomOf="@+id/Tv_genre"
+            app:layout_constraintEnd_toStartOf="@+id/Iv_poster"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/Iv_poster"
             tools:text="Queen Ramonda, Shuri, M’Baku, Okoye and the Dora Milaje fight to protect their nation from intervening world powers in the wake of King T’Challa’s death.  As the Wakandans strive to embrace their next chapter, the heroes must band together with the help of War Dog Nakia and Everett Ross and forge a new path for the kingdom of Wakanda." />
+
+
+        <ProgressBar
+            android:id="@+id/Pb_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

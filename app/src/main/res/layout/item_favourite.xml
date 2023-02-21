@@ -6,8 +6,8 @@
    <data>
 
        <variable
-           name="movieModel"
-           type="com.example.movieapptest.data.model.Result" />
+           name="favourite"
+           type="com.example.movieapptest.data.room.entity.FavouriteEntity" />
 
    </data>
 
@@ -35,7 +35,7 @@
                 android:layout_width="@dimen/_90sdp"
                 android:layout_height="@dimen/_100sdp"
                 android:scaleType="fitXY"
-                imageUrl="@{movieModel.poster_path}"
+                imageUrl="@{favourite.poster}"
                />
 
             <LinearLayout
@@ -51,7 +51,7 @@
                     android:ellipsize="end"
                     android:fontFamily="@font/roboto_bold"
                     android:lines="1"
-                    android:text="@{movieModel.title}"
+                    android:text="@{favourite.title}"
                     android:padding="@dimen/_2sdp"
                     android:textSize="@dimen/_14sdp"
                     tools:text="Black Panther: Wakanda Forever" />
@@ -63,7 +63,7 @@
                     android:padding="@dimen/_2sdp"
                     android:fontFamily="@font/roboto_medium"
                     android:lines="1"
-                    android:text="@{String.valueOf(movieModel.genre_categoryName)}"
+                    android:text="@{String.valueOf(favourite.genre)}"
                     android:textSize="@dimen/_10sdp"
                     tools:text="Action,Adventure,Science Fiction" />
 
@@ -75,7 +75,7 @@
                     android:padding="@dimen/_2sdp"
                     android:fontFamily="@font/roboto_medium"
                     android:lines="1"
-                    releaseOnText="@{movieModel.release_date}"
+                    releaseOnText="@{favourite.releaseDate}"
                     android:textSize="@dimen/_12sdp"
                     tools:text="Release On: 02-Feb-2023" />
 
@@ -102,7 +102,7 @@
                         android:fontFamily="@font/roboto_medium"
                         android:lines="1"
                         android:padding="@dimen/_2sdp"
-                        android:text="@{String.valueOf(movieModel.vote_average)+` Rating | voters: `+String.valueOf(movieModel.vote_count)}"
+                        android:text="@{String.valueOf(favourite.voteAverage)+` Rating | voters: `+String.valueOf(favourite.voteCount)}"
                         android:textSize="@dimen/_12sdp"
                         tools:text="8.5 Rating | Votes: 3132" />
 

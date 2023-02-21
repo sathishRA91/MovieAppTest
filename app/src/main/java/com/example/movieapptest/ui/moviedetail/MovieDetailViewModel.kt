@@ -1,18 +1,17 @@
 package com.example.movieapptest.ui.moviedetail
 
-import android.content.SharedPreferences
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapptest.base.AppConstant
 import com.example.movieapptest.base.ResultResource
-import com.example.movieapptest.data.model.Genres
 import com.example.movieapptest.data.model.MovieDetailModel
-import com.example.movieapptest.data.model.MoviesModel
+import com.example.movieapptest.data.repository.FavouriteRepository
 import com.example.movieapptest.data.repository.MovieRepository
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
+import com.example.movieapptest.data.room.entity.FavouriteEntity
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +20,8 @@ import javax.inject.Inject
  */
 @HiltViewModel
 class MovieDetailViewModel @Inject constructor(
-    private val movieRepository: MovieRepository
+    private val movieRepository: MovieRepository,
+    private val favouriteRepository: FavouriteRepository
 ) :
     ViewModel() {
 
@@ -41,11 +41,8 @@ class MovieDetailViewModel @Inject constructor(
     var voteCount = MutableStateFlow("")
     var spokenLanguage = MutableStateFlow("")
     var status = MutableStateFlow("")
-    var isFavourite = MutableStateFlow(false)
-
-    init {
-        movieDetail("505642")
-    }
+    var isFavourite = MutableLiveData(false)
+    var favouriteEntity: FavouriteEntity? = null
 
 
     fun movieDetail(movieId: String) {
@@ -67,13 +64,39 @@ class MovieDetailViewModel @Inject constructor(
                     releaseDate.value = data.release_date
                     voteAverage.value = data.vote_average.toString()
                     voteCount.value = data.vote_count.toString()
-                    val language = data.spoken_languages.map { it.name }
+                    val language = data.spoken_languages.map { it.name }.filter { it.isNotEmpty() }
                     spokenLanguage.value = language.toString()
-                    status.value = data.poster_path
+                    status.value = data.status
+                    favouriteEntity = FavouriteEntity(
+                        0,
+                        data.poster_path,
+                        data.title,
+                        genreContent.toString(),
+                        data.release_date,
+                        data.vote_average.toString(),
+                        data.vote_count.toString(),
+                        movieId
+                    )
+                    val favouriteData = favouriteRepository.checkFavouriteExist(movieId)
+                    if (favouriteData != null) {
+                        isFavourite.postValue(true)
+                    }
 
                 }
         }
 
     }
 
+
+    fun addRemoveFavourite(movieId: String) {
+        viewModelScope.launch {
+            if (isFavourite.value == true) {
+                favouriteRepository.deleteFavourite(movieId)
+                isFavourite.postValue(false)
+            } else {
+                isFavourite.postValue(true)
+                favouriteRepository.insertFavourite(favouriteEntity!!)
+            }
+        }
+    }
 }

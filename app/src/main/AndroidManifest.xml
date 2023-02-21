@@ -24,6 +24,8 @@
         </activity>
 
         <activity android:name=".ui.moviedetail.MovieDetailActivity"/>
+        <activity android:name=".ui.moviesearch.SearchMovieActivity"/>
+        <activity android:name=".ui.moviefavourite.FavouriteMovieActivity"/>
     </application>
 
 </manifest>

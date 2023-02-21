@@ -1,16 +1,10 @@
 package com.example.movieapptest.data.repository.paging
 
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.movieapptest.BuildConfig
-import com.example.movieapptest.base.AppConstant
-import com.example.movieapptest.data.model.Genres
 import com.example.movieapptest.data.model.Result
 import com.example.movieapptest.data.network.ApiInterface
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 
 class MoviePagingSource (private val apiInterface: ApiInterface, private val screenFrom: String) :
     PagingSource<Int, Result>() {

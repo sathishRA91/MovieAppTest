@@ -5,4 +5,7 @@
     <string name="top_rated">Top Rated</string>
     <string name="upcoming">Upcoming</string>
     <string name="banner">banner</string>
+    <string name="search">Search</string>
+    <string name="favourite">Favourite</string>
+    <string name="typeHere">Type here…</string>
 </resources>

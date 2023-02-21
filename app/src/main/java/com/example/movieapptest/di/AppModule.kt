@@ -6,6 +6,8 @@ import androidx.room.Room
 import com.example.movieapptest.BuildConfig
 import com.example.movieapptest.base.AppConstant
 import com.example.movieapptest.data.network.ApiInterface
+import com.example.movieapptest.data.repository.FavouriteRepository
+import com.example.movieapptest.data.repository.FavouriteRepositoryImp
 import com.example.movieapptest.data.repository.MovieRepository
 import com.example.movieapptest.data.repository.MovieRepositoryImp
 import com.example.movieapptest.data.repository.paging.MoviePagingSource
@@ -68,6 +70,13 @@ class AppModule {
             appContext,
             DataBase::class.java, "movieAppTest.db"
         ).build()
+    }
+
+    @Singleton
+    @Provides
+    fun provideFavouriteRepository(db:DataBase):FavouriteRepository
+    {
+        return FavouriteRepositoryImp(db.favouriteDao)
     }
 
 

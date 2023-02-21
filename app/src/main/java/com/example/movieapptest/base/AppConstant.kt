@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.Priority
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.signature.ObjectKey
+import com.example.movieapptest.R
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -32,6 +33,8 @@ class AppConstant {
 
             Glide.with(imageView.context)
                 .load(ImagePath + imageUrl)
+                .placeholder(R.drawable.sample)
+                .error(R.drawable.sample)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .signature(ObjectKey(cal.get(Calendar.DAY_OF_WEEK)))
                 .priority(Priority.HIGH)

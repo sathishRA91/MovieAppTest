@@ -3,6 +3,7 @@ package com.example.movieapptest.ui.home
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.cachedIn
 import com.example.movieapptest.base.AppConstant
 import com.example.movieapptest.data.repository.MovieRepository
 import com.google.gson.Gson

@@ -14,13 +14,15 @@ import kotlinx.coroutines.flow.Flow
 interface FavouriteDao {
 
     @Insert
-    fun insertFavourite(insertFavouriteEntity: FavouriteEntity)
+    suspend fun insertFavourite(insertFavouriteEntity: FavouriteEntity)
 
     @Query("Select * from FavouriteTable")
     fun getAllFavourite(): Flow<List<FavouriteEntity>>
 
+    @Query("Select * from FavouriteTable where movieId = :movieId")
+    suspend fun checkFavouriteIsExist(movieId: String):FavouriteEntity?
 
     @Query("Delete from FavouriteTable where movieId = :movieId")
-    fun deleteFavourite(movieId:String)
+    suspend fun deleteFavourite(movieId: String)
 
 }

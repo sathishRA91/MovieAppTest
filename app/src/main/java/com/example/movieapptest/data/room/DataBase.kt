@@ -10,5 +10,5 @@ import com.example.movieapptest.data.room.entity.FavouriteEntity
 @Database(entities = [FavouriteEntity::class], version = 1)
 abstract class DataBase:RoomDatabase() {
 
-    abstract fun favouriteDao():FavouriteDao
+    abstract val favouriteDao:FavouriteDao
 }

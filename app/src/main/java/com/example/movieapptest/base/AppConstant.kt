@@ -26,19 +26,23 @@ class AppConstant {
 
         @BindingAdapter("imageUrl")
         @JvmStatic
-        fun setImage(imageView: ImageView, imageUrl: String) {
+        fun setImage(imageView: ImageView, imageUrl: String?) {
 
-            val cal = Calendar.getInstance()
-            cal.time = Date()
+            if(imageUrl!=null&& imageUrl.isNotEmpty())
+            {
+                val cal = Calendar.getInstance()
+                cal.time = Date()
 
-            Glide.with(imageView.context)
-                .load(ImagePath + imageUrl)
-                .placeholder(R.drawable.sample)
-                .error(R.drawable.sample)
-                .diskCacheStrategy(DiskCacheStrategy.ALL)
-                .signature(ObjectKey(cal.get(Calendar.DAY_OF_WEEK)))
-                .priority(Priority.HIGH)
-                .into(imageView)
+                Glide.with(imageView.context)
+                    .load(ImagePath + imageUrl)
+                    .placeholder(R.drawable.sample)
+                    .error(R.drawable.sample)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .signature(ObjectKey(cal.get(Calendar.DAY_OF_WEEK)))
+                    .priority(Priority.HIGH)
+                    .into(imageView)
+            }
+
         }
 
 
